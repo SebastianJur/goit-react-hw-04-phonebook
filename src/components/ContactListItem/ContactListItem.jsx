@@ -2,10 +2,9 @@ import { Component } from 'react';
 import css from './ContactListItem.module.css';
 import PropTypes from 'prop-types';
 
-export class ContactListItem extends Component {
+class ContactListItem extends Component {
   render() {
     const { contact, onRemoveContact } = this.props;
-
     return (
       <li className={css.item}>
         <p className={css.text}>

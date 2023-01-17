@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 
 class ContactForm extends Component {
   render() {
-    const { onSubmit } = this.props;
-
+    const { handleSubmit } = this.props;
     return (
-      <form className={css.form} onSubmit={onSubmit}>
+      <form className={css.form} onSubmit={handleSubmit}>
         <label className={css.label}>
           Name
           <input
@@ -39,7 +38,7 @@ class ContactForm extends Component {
 }
 
 ContactForm.propTypes = {
-  onSubmit: PropTypes.func,
+  handleSubmit: PropTypes.func,
 };
 
 export default ContactForm;

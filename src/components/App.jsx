@@ -11,12 +11,17 @@ export class App extends Component {
     filter: '',
   };
 
-  onSubmit = event => {
-    event.preventDefault();
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    if (contacts) {
+      this.setState({ contacts: JSON.parse(contacts) });
+    }
+  }
 
+  handleSubmit = event => {
+    event.preventDefault();
     const form = event.target;
     const { name, number } = form.elements;
-
     const contact = {
       name: name.value,
       number: number.value,
@@ -31,7 +36,10 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
     }));
-
+    localStorage.setItem(
+      'contacts',
+      JSON.stringify([...this.state.contacts, contact])
+    );
     form.reset();
   };
 
@@ -39,25 +47,28 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
+    localStorage.setItem(
+      'contacts',
+      JSON.stringify(this.state.contacts.filter(contact => contact.id !== id))
+    );
   };
 
-  onChange = event => {
+  onChangeFilter = event => {
     this.setState({ filter: event.target.value });
   };
 
   render() {
+    const { contacts, filter } = this.state;
     return (
       <>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.onSubmit} />
-
+        <ContactForm handleSubmit={this.handleSubmit} />
         <h2>Contacts</h2>
-        <Filter value={this.state.filter} onChange={this.onChange} />
-
+        <Filter value={filter} onChangeFilter={this.onChangeFilter} />
         <ContactList
-          contacts={this.state.contacts}
+          contacts={contacts}
           onRemoveContact={this.onRemoveContact}
-          filter={this.state.filter}
+          filter={filter}
         />
       </>
     );

@@ -8,7 +8,6 @@ import Notification from 'components/Notification/Notification';
 class ContactList extends Component {
   render() {
     const { contacts, onRemoveContact, filter } = this.props;
-
     const filteredContacts = contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );

@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 
 class Filter extends Component {
   render() {
-    const { value, onChange } = this.props;
-
+    const { value, onChangeFilter } = this.props;
     return (
       <label className={css.label}>
         Find contacts by name
@@ -13,7 +12,7 @@ class Filter extends Component {
           className={css.input}
           type="text"
           value={value}
-          onChange={onChange}
+          onChange={onChangeFilter}
         />
       </label>
     );
